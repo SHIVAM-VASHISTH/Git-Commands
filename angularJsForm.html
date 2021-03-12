@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF 8">
+    <title>Employee Registration</title>
+</head>
+
+<body  ng-app="sampleApp">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.angularjs.org/1.6.9/angular-route.js"></script>
+<script src="https://code.angularjs.org/1.6.9/angular.min.js"></script>
+<script src="https://code.angularjs.org/1.6.9/angular.js"></script>
+
+<h1 style="text-align: center; color: cornflowerblue; margin: 20px;"><u>Employee Registration</u></h1>
+<div ng-controller="AngularController">
+
+
+    <div class="container" style="margin: 60px; border: 1px solid grey;">
+
+        <div class="row" style="margin: 50px;">
+            <form ng-submit="Display()">
+        
+                Name:<input type="text" ng-model="Topic.name" required style="margin-right: 100px; margin-bottom: 20px;">
+                Mobile No:<input type="text" ng-model="Topic.mobile" required style="margin-right: 80px;">
+                Address:<input type="text" ng-model="Topic.address" required style="margin-right: 100px;">
+                Email ID:<input type="text" ng-model="Topic.email" required style="margin-right: 70px;">
+                Qualification:<input type="text" ng-model="Topic.qualification" required style="margin-right: 150px;">
+                <input class="btn btn-primary" type="submit" value="Submit"/>
+            
+            </form>
+        </div>
+        
+    </div>
+
+   
+
+    <div style = "margin-top: 50px;">
+    <table style="margin: auto; width: 80%;">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Mobile No</th>
+            <th>Address</th>
+            <th>Email ID</th>
+            <th>Qualification</th>
+            <th colspan="3">Options</th>
+        </tr>
+        <tr ng-repeat="topicname in AllTopic">
+            <td>{{$index + 1}} </td>
+            <td><input type="text" ng-model="topicname.name" ng-disabled = "!enableEdit[{{$index}}]"></td>
+            <td><input type="text" ng-model="topicname.mobile" ng-disabled = "!enableEdit[{{$index}}]"></td>
+            <td><input type="text" ng-model="topicname.address" ng-disabled = "!enableEdit[{{$index}}]"></td>
+            <td><input type="text" ng-model="topicname.email" ng-disabled = "!enableEdit[{{$index}}]"></td>
+            <td><input type="text" ng-model="topicname.qualification" ng-disabled = "!enableEdit[{{$index}}]"></td>
+            <td><a href="#" ng-click= "remThis($index, content)">Delete</a></td>
+            <td><a href="#" ng-click= "editThis($index)">Edit</a></td>
+            <td><a href="#" ng-click= "saveThis($index)">Save</a></td>
+        
+        </tr>
+    </table>
+</div>
+
+</div>
+
+<script>
+   var sampleApp = angular.module("sampleApp",[]);
+
+    sampleApp.controller("AngularController",function($scope) {
+        $scope.AllTopic=[];
+        $scope.enableEdit=[];
+        
+        $scope.Display = function () {
+            $scope.AllTopic.push($scope.Topic);
+            $scope.Topic =[];
+        }
+
+        $scope.remThis = function(index, content){
+            if(index != -1){
+                $scope.AllTopic.splice(index, 1)
+            }
+        }
+
+        $scope.editThis = function(index){
+            
+           $scope.enableEdit[index] = true;
+    
+        }
+
+        $scope.saveThis = function(index){
+            
+            $scope.enableEdit[index] = false;
+
+        }
+
+    });
+</script>
+
+
+
+<style>
+    th,td{
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+</style>
+
+
+
+</body>
+</html>
